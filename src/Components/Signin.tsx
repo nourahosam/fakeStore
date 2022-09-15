@@ -2,6 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../Services/Reducers/userReducer';
 import { RootState, AppDispatch } from '../Services/store';
+import { userType } from '../Services/Types';
 
 interface formValues {
     username: string,
@@ -26,7 +27,8 @@ const Signin = () => {
                     initialValues={initialValues}
                     onSubmit={(values, actions) => {
                         console.log("Form Values",values);
-                        dispatch(loginUser(values))
+                        const newValues: userType = {isLogged:false, username: values.username, password: values.password};
+                        dispatch(loginUser(newValues))
                     }}
                 >
                     <Form>

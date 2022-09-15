@@ -10,7 +10,9 @@ export interface userStateType {
 
 export interface userType {
     isLogged: boolean,
+    id?: string | Number,
     fullName? : string,
+    username? :string,
     email?: string,
     password?: string,
     token?: string,

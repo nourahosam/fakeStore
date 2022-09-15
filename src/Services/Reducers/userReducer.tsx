@@ -8,6 +8,9 @@ const initialState: userStateType = {
     error: false,
     user: {
         isLogged: false,
+        id: '',
+        token: '',
+        shoppingCart: []
     },
     users: []
 }
@@ -44,20 +47,27 @@ export const signupUser = createAsyncThunk('user/signup', async (values: userTyp
 
 
 
-export const loginUser = createAsyncThunk('user/login', async (values: object) => {
-    console.log(values);
+export const loginUser = createAsyncThunk('user/login', async (values: userType) => {
+    console.log("loginUSERRRRRRRRRRRRRRRRRRRRRRRRRR", values);
     const ress = await axios.post('https://fakestoreapi.com/auth/login', values)
         .then((response) => {
             console.log("Axios response Login", response);
             return response.data
         })
-        .catch((err) => console.log("axios error", err))
-    console.log("response", ress)
-    return ress;
+        .catch((err) => console.log("axios error", err));
+
+
+    const finalid = await axios.get('https://fakestoreapi.com/users')
+        .then(async (res) => {
+            const id = res.data.filter((el: any) => el.username === values.username);
+            console.log("HNAA", id[0].id)
+            return id[0].id;
+        })
+    return { ...ress, id: finalid };
 })
 
 // export const addToCart = createAsyncThunk('user/addtocard', (id, quantity) => {
-    
+
 // })
 
 
@@ -72,6 +82,8 @@ export const userSlicer = createSlice({
             state.isLoading = false;
             state.user.isLogged = true;
             state.error = false;
+            state.user.token = action.payload.token;
+            state.user.id = action.payload.id;
             console.log('MABROOOOOOOOOOOOOOOOOOOOOOOOOOOOOK', action)
         })
         builder.addCase(loginUser.rejected, (state, action) => {
@@ -96,11 +108,11 @@ export const userSlicer = createSlice({
         // createUser: (state, action: PayloadAction<usersType>) =>{
         //     state.users.push(action.payload)
         // },
-        addToCart: (state, action) =>{
-                console.log("ANA HENAAAAAAAAAAAAAAAAAAAAAAAA")
+        addToCart: (state, action) => {
+            console.log("ANA HENAAAAAAAAAAAAAAAAAAAAAAAA")
             //if(state.user.isLogged){
-                state.user.shoppingCart?.push(action.payload);
-                console.log("ADDDDDDDDDDDDDDDDD TOOOOOOOOOOOOOO CAAAAAAAAAAAAAAART",state.user);
+            state.user.shoppingCart?.push({ ...action.payload });
+            console.log("ADDDDDDDDDDDDDDDDD TOOOOOOOOOOOOOO CAAAAAAAAAAAAAAART", state.user);
             // }
             // else state.error = true;
         }
@@ -109,7 +121,7 @@ export const userSlicer = createSlice({
 })
 
 
-export const {addToCart} = userSlicer.actions;
+export const { addToCart } = userSlicer.actions;
 
 export default userSlicer.reducer;
 
