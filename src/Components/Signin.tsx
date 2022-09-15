@@ -1,5 +1,6 @@
 import { Formik, Form, Field } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../Services/Reducers/userReducer';
 import { RootState, AppDispatch } from '../Services/store';
 import { userType } from '../Services/Types';
@@ -16,7 +17,7 @@ const Signin = () => {
         password: '',
     }
     const dispatch = useDispatch<AppDispatch>();
-
+    const navigate = useNavigate();
     return (
         <div className='bg-[#f7f8fd] w-screen h-screen flex justify-center '>
             <div className='w-1/3 content-center my-auto'>
@@ -28,7 +29,8 @@ const Signin = () => {
                     onSubmit={(values, actions) => {
                         console.log("Form Values",values);
                         const newValues: userType = {isLogged:false, username: values.username, password: values.password};
-                        dispatch(loginUser(newValues))
+                        dispatch(loginUser(newValues));
+                        navigate('/');
                     }}
                 >
                     <Form>

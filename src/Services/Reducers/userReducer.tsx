@@ -105,16 +105,14 @@ export const userSlicer = createSlice({
         })
     },
     reducers: {
-        // createUser: (state, action: PayloadAction<usersType>) =>{
-        //     state.users.push(action.payload)
-        // },
+
         addToCart: (state, action) => {
             console.log("ANA HENAAAAAAAAAAAAAAAAAAAAAAAA")
-            //if(state.user.isLogged){
+            if(state.user.isLogged){
             state.user.shoppingCart?.push({ ...action.payload });
             console.log("ADDDDDDDDDDDDDDDDD TOOOOOOOOOOOOOO CAAAAAAAAAAAAAAART", state.user);
-            // }
-            // else state.error = true;
+             }
+             else state.error = true;
         }
     }
 
