@@ -18,10 +18,10 @@ function App() {
         <Routes>
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
-          <Route element={<RequireAuth />}>
+          {/* <Route element={<RequireAuth />}> */}
             <Route path='/product/:id' element={<Product />} />
             <Route path='*' element={<ProductList />} />
-          </Route>
+          {/* </Route> */}
 
         </Routes>
       </BrowserRouter>
