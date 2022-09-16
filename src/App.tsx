@@ -22,7 +22,6 @@ function App() {
             <Route path='/product/:id' element={<Product />} />
             <Route path='*' element={<ProductList />} />
           {/* </Route> */}
-
         </Routes>
       </BrowserRouter>
     </div>
