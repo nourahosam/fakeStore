@@ -1,6 +1,6 @@
 export const Cart = () => {
     return (<div className="relative z-10" >
-
+{/* 
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
   
     <div className="fixed inset-0 overflow-hidden">
@@ -29,7 +29,7 @@ export const Cart = () => {
 
                     <li className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          {/* <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." className="h-full w-full object-cover object-center"> */}
+                           <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." className="h-full w-full object-cover object-center"> 
                         </div>
   
                         <div className="ml-4 flex flex-1 flex-col">
@@ -79,6 +79,6 @@ export const Cart = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
   </div>)
 }
