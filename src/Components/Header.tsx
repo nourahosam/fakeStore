@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { CgProfile } from 'react-icons/cg'
 import { useSelector } from 'react-redux'
@@ -6,7 +7,7 @@ import { Cart } from './Cart'
 
 export const Header = () => {
     const cartCount = useSelector((state:RootState) => state.userList.user.shoppingCart?.length)
-
+    const [modal, setModal] = useState(false);
     return (
         <div className="flex mt-5 w-full h-20 border-b justify-between">
             <div className='flex w-1/2'>
@@ -20,10 +21,11 @@ export const Header = () => {
                 </ul>
             </div>
             <div className='flex justify-between text-3xl'>
-                <Cart />
-                <div className="relative inline-block">
-                    <AiOutlineShoppingCart className="text-3xl text-gray-700 fill-current mr-5" />
-                    <span className="absolute top-0 right-5 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">{cartCount}</span>
+                <div className="relative inline-block" >
+                
+                    <AiOutlineShoppingCart className="text-3xl text-gray-700 fill-current mr-5 cursor-pointer" onClick={()=>setModal(!modal)}/>
+                    <span className="absolute top-0 right-5 inline-flex items-center justify-center px-2 py-1 text-xs font-bold cursor-pointer leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full" onClick={()=>setModal(!modal)}>{cartCount}</span>
+                    <Cart modal={modal} setModal={setModal} />
                 </div>
                 <CgProfile />
             </div>

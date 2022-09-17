@@ -13,9 +13,9 @@ export const ProductCard = (props: any) => {
             <img src={props.product.image} className='w-[300px]' />
         </div>
         <div className="text-left">
-            <p>{props.product.title}</p>
+            <p className="text-left font-semibold">{props.product.title}</p>
             <p>{props.product.category}</p>
-            <p>${props.product.price}</p>
+            <p className="text-left font-semibold">${props.product.price}</p>
         </div>
     </div>
     </Link>)

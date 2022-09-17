@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { userType, userStateType } from "../Types";
+import { userType, userStateType, productType, cartType } from "../Types";
 
 
 const initialState: userStateType = {
@@ -60,12 +60,19 @@ export const loginUser = createAsyncThunk('user/login', async (values: userType)
     const finalid = await axios.get('https://fakestoreapi.com/users')
         .then(async (res) => {
             const id = res.data.filter((el: any) => el.username === values.username);
-            console.log("HNAA", id[0].id)
+            console.log("HNAA", id[0])
             return id[0].id;
         })
     return { ...ress, id: finalid };
 })
 
+
+export const addToCart = createAsyncThunk('user/addToCart', async (values: cartType) => {
+    const response = await axios.get(`https://fakestoreapi.com/products/${values.id}`)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+    return { ...response, quantity: values.quantity };
+})
 // export const addToCart = createAsyncThunk('user/addtocard', (id, quantity) => {
 
 // })
@@ -103,23 +110,27 @@ export const userSlicer = createSlice({
             state.isLoading = false;
             state.error = true;
         })
-    },
-    reducers: {
-
-        addToCart: (state, action) => {
+        builder.addCase(addToCart.pending, (state, action) => {
+            state.isLoading = true;
+        })
+        builder.addCase(addToCart.fulfilled, (state, action) => {
             console.log("ANA HENAAAAAAAAAAAAAAAAAAAAAAAA")
-            if(state.user.isLogged){
-            state.user.shoppingCart?.push({ ...action.payload });
-            console.log("ADDDDDDDDDDDDDDDDD TOOOOOOOOOOOOOO CAAAAAAAAAAAAAAART", state.user);
-             }
-             else state.error = true;
-        }
-    }
+            if (state.user.isLogged) {
+                state.user.shoppingCart?.push({ ...action.payload });
+                console.log("ADDDDDDDDDDDDDDDDD TOOOOOOOOOOOOOO CAAAAAAAAAAAAAAART", state.user);
+            }
+            else state.error = true;
+        });
+        builder.addCase(addToCart.rejected, (state, action) => {
+            state.isLoading = false;
+        })
+    },
+    reducers: {}
 
 })
 
 
-export const { addToCart } = userSlicer.actions;
+//export const { addToCart } = userSlicer.actions;
 
 export default userSlicer.reducer;
 

@@ -11,7 +11,7 @@ export const Product = () => {
     const product = useSelector((state: RootState) => state.productList.currentProduct)
     const currentUser = useSelector((state: RootState) => state.userList.user);
     const dispatch = useDispatch<AppDispatch>();
-    const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(1);
     const newId = product?.id;
     useEffect(() => {
         //console.log(params);
@@ -20,7 +20,7 @@ export const Product = () => {
 
     const handleClick = (e: any) => {
         // if(currentUser.token){
-        dispatch(addToCart({ id: product?.id, quantity: 50 }));
+        dispatch(addToCart({ id: product?.id, quantity: counter }));
         // }
     }
 
@@ -48,14 +48,9 @@ export const Product = () => {
                                 <span className="m-auto text-2xl font-extrabold">+</span>
                             </button>
                         </div>
-                        <button onClick={handleClick} className='border w-1/2 h-10 bg-orange-500 rounded-lg mt-1 text-white'>Add to cart</button>
-                        <div>
-
-                        </div>
+                        <button onClick={handleClick} className='border w-1/2 h-10 bg-orange-500 hover:bg-orange-400 rounded-lg mt-1 text-white'>Add to cart</button>
                     </div>
                 </div>
-                {/* <p><>{product?.id}</></p>
-            <button onClick={handleClick} className='border'>Add to cart</button> */}
             </div>
         </div>
         </div>)

@@ -16,11 +16,11 @@ export interface userType {
     email?: string,
     password?: string,
     token?: string,
-    shoppingCart?: cartType[]
+    shoppingCart?: productType[]
 }
 
 export interface cartType {
-    id: Number,
+    id?: Number,
     quantity: Number
 }
 
@@ -34,7 +34,8 @@ export interface productType {
     rating: {
         rate: Number,
         count: Number
-    }
+    },
+    quantity? : Number | string
 }
 
 export interface productStateType {
